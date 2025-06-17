@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQL</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="markdown-content">
+# sql injection
+
+<!--note to form a compressed version of knowledge with knowledge-->
+- sql for structured query language as a standard language for accessing and manipulating databases
+  - To build a web site that shows data from a database, you will need:
+    1. An RDBMS database program (i.e. MS Access, SQL Server, MySQL)
+    2. To use a server-side scripting language, like PHP or ASP
+    3. To use SQL to get the data you want
+    4. To use HTML / CSS to style the page
+- RDBMS stands for relational database management system, like mysql or oracle(it's a software that manage data using sql)
+    </div>
+
+    <script>
+        const markdownDiv = document.getElementById('markdown-content');
+        markdownDiv.innerHTML = marked.parse(markdownDiv.textContent);
+    </script>
+</body>
+</html>
