@@ -3,19 +3,73 @@
 <head>
     <title>SQL</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
 </head>
 <body>
     <div id="markdown-content">
-# sql injection
+# SQL INJECTION
 
+&ltdetails&gt
+  &ltsummary&gtSQL BASICS&lt/summary&gt
 <!--note to form a compressed version of knowledge with knowledge-->
 - sql for structured query language as a standard language for accessing and manipulating databases
-  - To build a web site that shows data from a database, you will need:
+- To build a web site that shows data from a database, you will need:
+  &ltdetails&gt
+    &ltsummary&gtthose&lt/summary&gt
     1. An RDBMS database program (i.e. MS Access, SQL Server, MySQL)
     2. To use a server-side scripting language, like PHP or ASP
     3. To use SQL to get the data you want
     4. To use HTML / CSS to style the page
-- RDBMS stands for relational database management system, like mysql or oracle(it's a software that manage data using sql)
+  &lt/details&gt
+- A database contains one or more tables, and data is stored in tables which consists of columns and rows
+  - tables are broken up into fields which are basically columns
+  - a record aka row
+- actions done through sql statements(sql keywords are NOT case sensitive)
+```sql
+    SELECT * FROM customers;//customers is a table
+```
+- different commands' syntax
+  - `select column1,column2, ... from table_name;` * for all columns
+  - `select distinct country from customers;` and `SELECT COUNT(DISTINCT Country) FROM Customers;`
+    &ltdetails&gt
+      &ltsummary&gtnote:&lt/summary&gt
+      COUNT(DISTINCT column_name) not supported in Microsoft Access databases
+    &lt/details&gt
+  - `where` clause to filter records that fulfill a specified condition `SELECT * FROM Customers WHERE Country='Mexico';``SELECT * FROM Customers WHERE CustomerID=1;`
+    - single quotes for text values and numeric fields need nothing
+    - different operators
+      - =;&lt; `BETWEEN 50 AND 60`; `LIKE "s%"/'L_nd__' `(wildcard % for whatever number of letters and _ for a letter); `IN` multiple values
+        - `SELECT * FROM Customers WHERE CustomerID IN (SELECT CustomerID FROM Orders);`
+  - `ORDER BY` sort the result-set in ascending or descending order `SELECT * FROM Products ORDER BY Price DESC;`
+    - several standard just alphabetically `SELECT * FROM Customers ORDER BY Country, CustomerName;`
+    - combined `SELECT * FROM Customers ORDER BY Country ASC, CustomerName DESC;`
+  - `where` clause supports `AND` `OR` parenthesis and `NOT`
+    - `SELECT * FROM Customers WHERE CustomerName NOT LIKE 'A%';`
+    - `SELECT * FROM Customers WHERE NOT CustomerID > 50;` mind the sequence.
+  - `insert into` insert new records in a table
+    - `INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);` (null for unspecified fields and auto-increment for increasing numbers) or
+      &ltdetails&gt
+        &ltsummary&gtWhat is a null value?&lt/summary&gt
+        it is essentially blank; use is not null is null those 2 operators to test for them
+      &lt/details&gt
+    - INSERT INTO table_name VALUES (value1, value2, value3, ...);
+    - multiple records `INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) VALUE ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway'), ('Greasy Burger', 'Per Olsen', 'Gateveien 15', 'Sandnes', '4306', 'Norway'),('Tasty Tee', 'Finn Egan', 'Streetroad 19B', 'Liverpool', 'L1 0AA', 'UK');` remember to add , between records.
+  - `update` modify the existing records in a table
+    - `UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;` don't omit `where` clause or records will be updated
+  - `delete` statements is used to delete existing records
+    - `DELETE FROM table_name WHERE condition;` don't omit `where` clause or all will be deleted
+    - to delete a whole table, use `drop table table_name;`
+  - sql top limit comes with a lot of variations please look it up on the internet
+- aggregate functions and some wildcards
+  - `select min(Price) as smallest_price, categoryID from products group by categoryID;` or `max()` `as` alias for the returned column
+  - `SELECT COUNT(column_name) AS [number of records] FROM table_name WHERE condition/GROUP BY categoryID;` Or if you specify a column name instead of (*), NULL values will not be counted.
+  - `SELECT SUM(expression(column_name)) AS total FROM table_name WHERE condition/GROUP BY orderID;`
+  - `avg()` note: null values are ignored
+  - [] `SELECT * FROM Customers WHERE CustomerName LIKE '[bsp]%';`returns a result if any of the characters inside gets a match._Not supported in PostgreSQL and MySQL databases._
+  - The - wildcard allows you to specify a range of characters inside the [] wildcard. `SELECT * FROM Customers WHERE CustomerName LIKE '[a-f]%';`_Not supported in PostgreSQL and MySQL databases._
+    - microsoft and oracle have other wildcards
+&lt/details&gt
     </div>
 
     <script>
